@@ -8,14 +8,17 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.mtah.todolist.R
+import com.mtah.todolist.SharedViewModel
 import com.mtah.todolist.backend.ToDoViewModel
 import com.mtah.todolist.backend.models.Priority
 import com.mtah.todolist.backend.models.ToDo
 import kotlinx.android.synthetic.main.fragment_add.*
+import kotlinx.android.synthetic.main.fragment_add.view.*
 
 class AddFragment : Fragment() {
 
-    var viewModel: ToDoViewModel? = null
+    val viewModel: ToDoViewModel by viewModels()
+    val sharedViewModel: SharedViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -23,9 +26,8 @@ class AddFragment : Fragment() {
     ): View? {
         val view =  inflater.inflate(R.layout.fragment_add, container, false)
         setHasOptionsMenu(true)
-
-        viewModel = ViewModelProvider(requireActivity()).get(ToDoViewModel::class.java)
-
+       // viewModel = ViewModelProvider(requireActivity()).get(ToDoViewModel::class.java)
+        view.priorities_spinner.onItemSelectedListener = sharedViewModel.spinnerListener
 
         return view
     }
@@ -47,27 +49,14 @@ class AddFragment : Fragment() {
         val priority = priorities_spinner.selectedItem.toString()
         val description = description_et.text.toString()
 
-        if (isValidData(title, description)){
-//            val newTask = ToDo(title, getPriority(priority),description)
-//            viewModel.insert(newTask)
+        if (sharedViewModel.isValidData(title, description)){
+            val newTask = ToDo(title, sharedViewModel.getPriority(priority),description)
+            viewModel.insert(newTask)
             Toast.makeText(requireContext(), "New task added!", Toast.LENGTH_SHORT).show()
             findNavController().navigate(R.id.action_addFragment_to_homeFragment)
         } else {
             Toast.makeText(requireContext(), "Please enter both title and description.", Toast.LENGTH_SHORT).show()
         }
 
-    }
-
-    private fun getPriority(priority: String): Priority {
-        return when(priority) {
-            "Low Priority" -> Priority.LOW
-            "Medium Priority" -> Priority.MEDIUM
-            "High Priority" -> Priority.HIGH
-            else -> Priority.LOW
-        }
-    }
-
-    private fun isValidData(title: String, description: String): Boolean{
-        return title.isNotBlank() and description.isNotBlank()
     }
 }
