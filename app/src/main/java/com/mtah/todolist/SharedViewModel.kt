@@ -16,7 +16,6 @@ class SharedViewModel(application: Application): AndroidViewModel(application) {
 
     val spinnerListener: AdapterView.OnItemSelectedListener  = object : AdapterView.OnItemSelectedListener {
         override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-//            TODO("Not yet implemented")
             when (position) {
                 0 -> (parent?.getChildAt(0) as TextView).setTextColor(ContextCompat.getColor(application, R.color.green))
                 1 -> (parent?.getChildAt(0) as TextView).setTextColor(ContextCompat.getColor(application, R.color.yellow))
@@ -24,9 +23,7 @@ class SharedViewModel(application: Application): AndroidViewModel(application) {
             }
         }
 
-        override fun onNothingSelected(parent: AdapterView<*>?) {
-//            TODO("Not yet implemented")
-        }
+        override fun onNothingSelected(parent: AdapterView<*>?) {}
 
     }
     fun getPriority(priority: String): Priority {

@@ -15,6 +15,8 @@
     <string name="delete_all">Delete All</string>
     <string name="add">Add</string>
     <string name="save">Save</string>
+    <string name="item_title">Item Title</string>
+    <string name="item_description">Item Description</string>
 
     <string-array name="priorities">
         <item>Low Priority</item>
