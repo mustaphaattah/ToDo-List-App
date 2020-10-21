@@ -50,7 +50,7 @@ class AddFragment : Fragment() {
         val description = description_et.text.toString()
 
         if (sharedViewModel.isValidData(title, description)){
-            val newTask = ToDo(title, sharedViewModel.getPriority(priority),description)
+            val newTask = ToDo(0, title, sharedViewModel.getPriority(priority),description)
             viewModel.insert(newTask)
             Toast.makeText(requireContext(), "New task added!", Toast.LENGTH_SHORT).show()
             findNavController().navigate(R.id.action_addFragment_to_homeFragment)
