@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">To Do List</string>
+    <string name="app_name">To Dos</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="no_data_text">No Data</string>
     <string name="no_data_image_description">Icon indicating empty list</string>
