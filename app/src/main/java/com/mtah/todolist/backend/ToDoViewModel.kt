@@ -1,6 +1,7 @@
 package com.mtah.todolist.backend
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
@@ -14,6 +15,8 @@ class ToDoViewModel(application: Application): AndroidViewModel(application) {
 
     private val toDoDao = ToDoDatabase.getDatabase(application).toDoDao()
     private val toDoRepository: ToDoRepository
+
+    val TAG = "ToDoViewModel"
 
     private var allData: LiveData<List<ToDo>>
 
@@ -37,6 +40,11 @@ class ToDoViewModel(application: Application): AndroidViewModel(application) {
 
     fun deleteAll() = viewModelScope.launch(Dispatchers.IO) {
         toDoRepository.deleteAll()
+    }
+
+    fun update(toDo: ToDo) = viewModelScope.launch(Dispatchers.IO) {
+        Log.i(TAG, "viewModel coroutine update")
+        toDoRepository.update(toDo)
     }
 
 }

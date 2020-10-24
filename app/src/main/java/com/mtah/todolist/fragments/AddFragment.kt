@@ -37,8 +37,8 @@ class AddFragment : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.option_add) {
-            insertTask()
+        when (item.itemId) {
+           R.id.option_add -> insertTask()
         }
 
         return super.onOptionsItemSelected(item)

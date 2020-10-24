@@ -2,6 +2,7 @@ package com.mtah.todolist.fragments
 
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -43,6 +44,18 @@ class HomeFragment : Fragment() {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.home_fragment_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.option_delete_all -> deleteAllData()
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun deleteAllData() {
+        viewModel.deleteAll()
+        Toast.makeText(requireContext(), "All tasks deleted!", Toast.LENGTH_SHORT).show()
     }
 
 }

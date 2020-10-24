@@ -26,6 +26,7 @@ class SharedViewModel(application: Application): AndroidViewModel(application) {
         override fun onNothingSelected(parent: AdapterView<*>?) {}
 
     }
+
     fun getPriority(priority: String): Priority {
         return when(priority) {
             "Low Priority" -> Priority.LOW
@@ -37,5 +38,13 @@ class SharedViewModel(application: Application): AndroidViewModel(application) {
 
     fun isValidData(title: String, description: String): Boolean{
         return title.isNotBlank() and description.isNotBlank()
+    }
+
+    fun priorityToInt(priority: Priority): Int{
+        return when (priority) {
+            Priority.LOW -> 0
+            Priority.MEDIUM -> 1
+            Priority.HIGH -> 2
+        }
     }
 }

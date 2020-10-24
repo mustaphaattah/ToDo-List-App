@@ -32,8 +32,8 @@ class ToDoAdapter : RecyclerView.Adapter<ToDoAdapter.ToDoViewHolder>() {
         holder.itemView.item_title_tv.text = item.title
         holder.itemView.item_desc.text = item.description
         holder.itemView.row_bg.setOnClickListener {
-            val direction = HomeFragmentDirections.actionHomeFragmentToUpdateFragment(item)
-            holder.itemView.findNavController().navigate(direction)
+            val action = HomeFragmentDirections.actionHomeFragmentToUpdateFragment(item)
+            holder.itemView.findNavController().navigate(action)
         }
 
         when (item.priority) {
