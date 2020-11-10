@@ -87,8 +87,6 @@ class UpdateFragment : Fragment(){
             .setNegativeButton("No") { _, _ -> }
 
         alertBuilder.create().show()
-
-
     }
 
 }

@@ -3,6 +3,7 @@ package com.mtah.todolist.fragments
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -48,14 +49,27 @@ class HomeFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.option_delete_all -> deleteAllData()
+            R.id.option_delete_all -> deleteConfirmation()
         }
         return super.onOptionsItemSelected(item)
     }
 
-    private fun deleteAllData() {
-        viewModel.deleteAll()
-        Toast.makeText(requireContext(), "All tasks deleted!", Toast.LENGTH_SHORT).show()
+    private fun deleteConfirmation(){
+        val alertBuilder = AlertDialog.Builder(requireContext())
+        alertBuilder.setMessage("Are you sure you want to delete all data?")
+            .setTitle("Delete all data")
+            .setCancelable(true)
+            .setPositiveButton("Yes") { _, _ ->
+                viewModel.deleteAll()
+                Toast.makeText(
+                    requireContext(),
+                    "All data deleted!",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+            .setNegativeButton("No") { _, _ -> }
+
+        alertBuilder.create().show()
     }
 
 }
