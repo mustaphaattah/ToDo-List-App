@@ -18,12 +18,13 @@
               android:label="@string/add_fragment_label"
               tools:layout="@layout/fragment_add">
         <action android:id="@+id/action_addFragment_to_homeFragment" app:destination="@id/homeFragment"
-                app:enterAnim="@anim/from_left" app:exitAnim="@anim/to_right"/>
+                app:enterAnim="@anim/from_right" app:exitAnim="@anim/to_right"/>
     </fragment>
     <fragment android:id="@+id/updateFragment" android:name="com.mtah.todolist.fragments.UpdateFragment"
               android:label="@string/update_fragment_label" tools:layout="@layout/fragment_update">
         <action android:id="@+id/action_updateFragment_to_homeFragment" app:destination="@id/homeFragment"
-                app:enterAnim="@anim/from_right" app:exitAnim="@anim/to_left"/>
+                app:enterAnim="@anim/from_left" app:exitAnim="@anim/to_left"
+        />
         <argument android:name="todoItem" app:argType="com.mtah.todolist.backend.models.ToDo"/>
     </fragment>
 </navigation>

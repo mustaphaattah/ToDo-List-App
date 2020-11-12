@@ -1,18 +1,22 @@
 package com.mtah.todolist
 
 import android.app.Application
-import android.graphics.Color.red
 import android.view.View
 import android.widget.AdapterView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.AndroidViewModel
-import androidx.navigation.fragment.findNavController
+import androidx.lifecycle.MutableLiveData
 import com.mtah.todolist.backend.models.Priority
-import kotlinx.android.synthetic.main.fragment_add.*
+import com.mtah.todolist.backend.models.ToDo
 
 class SharedViewModel(application: Application): AndroidViewModel(application) {
+
+    val emptyDatabase: MutableLiveData<Boolean> = MutableLiveData(true)
+
+    fun isEmptyDatabase(toDos: List<ToDo>) {
+        emptyDatabase.value = toDos.isEmpty()
+    }
 
     val spinnerListener: AdapterView.OnItemSelectedListener  = object : AdapterView.OnItemSelectedListener {
         override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
