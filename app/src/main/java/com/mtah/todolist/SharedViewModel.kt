@@ -44,11 +44,4 @@ class SharedViewModel(application: Application): AndroidViewModel(application) {
         return title.isNotBlank() and description.isNotBlank()
     }
 
-    fun priorityToInt(priority: Priority): Int{
-        return when (priority) {
-            Priority.LOW -> 0
-            Priority.MEDIUM -> 1
-            Priority.HIGH -> 2
-        }
-    }
 }

@@ -1,11 +1,13 @@
 package com.mtah.todolist.fragments
 
 import android.view.View
+import android.widget.Spinner
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.mtah.todolist.R
+import com.mtah.todolist.backend.models.Priority
 
 class BindingAdapters {
 
@@ -26,6 +28,16 @@ class BindingAdapters {
             when (emptyDatabase.value){
                 true -> view.visibility = View.VISIBLE
                 false -> view.visibility = View.INVISIBLE
+            }
+        }
+
+        @BindingAdapter("android:parsePriorityToInt")
+        @JvmStatic
+        fun parsePriorityToInt(view: Spinner, priority: Priority) {
+            when (priority) {
+                Priority.LOW -> view.setSelection(0)
+                Priority.MEDIUM -> view.setSelection(1)
+                Priority.HIGH -> view.setSelection(2)
             }
         }
     }

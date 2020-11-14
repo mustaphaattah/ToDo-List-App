@@ -13,6 +13,7 @@ import com.mtah.todolist.R
 import com.mtah.todolist.SharedViewModel
 import com.mtah.todolist.backend.ToDoViewModel
 import com.mtah.todolist.backend.models.ToDo
+import com.mtah.todolist.databinding.FragmentUpdateBinding
 import kotlinx.android.synthetic.main.fragment_update.*
 import kotlinx.android.synthetic.main.fragment_update.view.*
 
@@ -22,6 +23,9 @@ class UpdateFragment : Fragment(){
     private val sharedViewModel: SharedViewModel by viewModels()
     private val toDoViewModel: ToDoViewModel by viewModels()
 
+    private var updateBinding: FragmentUpdateBinding? = null
+    private val binding get() = updateBinding!!
+
     private val TAG = "UpdateFragment"
 
     override fun onCreateView(
@@ -29,15 +33,19 @@ class UpdateFragment : Fragment(){
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_update, container, false)
+        updateBinding = FragmentUpdateBinding.inflate(inflater, container, false)
+        binding.lifecycleOwner = this
+        binding.args = args
         setHasOptionsMenu(true)
 
-        view.title_et.setText(args.todoItem.title)
-        view.description_et.setText(args.todoItem.description)
-        view.priorities_spinner.setSelection(sharedViewModel.priorityToInt(args.todoItem.priority))
-        view.priorities_spinner.onItemSelectedListener = sharedViewModel.spinnerListener
+        binding.prioritiesSpinner.onItemSelectedListener = sharedViewModel.spinnerListener
 
-        return view
+//        view.title_et.setText(args.todoItem.title)
+//        view.description_et.setText(args.todoItem.description)
+//        view.priorities_spinner.setSelection(sharedViewModel.priorityToInt(args.todoItem.priority))
+//        view.priorities_spinner.onItemSelectedListener = sharedViewModel.spinnerListener
+
+        return binding.root
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -87,6 +95,11 @@ class UpdateFragment : Fragment(){
             .setNegativeButton("No") { _, _ -> }
 
         alertBuilder.create().show()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        updateBinding = null
     }
 
 }
