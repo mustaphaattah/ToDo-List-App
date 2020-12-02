@@ -5,12 +5,10 @@ import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.mtah.todolist.R
 import com.mtah.todolist.SharedViewModel
 import com.mtah.todolist.backend.ToDoViewModel
-import com.mtah.todolist.backend.models.Priority
 import com.mtah.todolist.backend.models.ToDo
 import kotlinx.android.synthetic.main.fragment_add.*
 import kotlinx.android.synthetic.main.fragment_add.view.*

@@ -1,17 +1,22 @@
 package com.mtah.todolist.fragments
 
+import android.view.MenuItem
 import android.view.View
 import android.widget.Spinner
+import androidx.cardview.widget.CardView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.mtah.todolist.R
 import com.mtah.todolist.backend.models.Priority
+import com.mtah.todolist.backend.models.ToDo
 
 class BindingAdapters {
 
     companion object {
+        // navigate To Add Fragment
         @BindingAdapter("android:navigateToAddFragment")
         @JvmStatic
         fun navigateToAddFragment(view: FloatingActionButton, navigate: Boolean) {
@@ -38,6 +43,25 @@ class BindingAdapters {
                 Priority.LOW -> view.setSelection(0)
                 Priority.MEDIUM -> view.setSelection(1)
                 Priority.HIGH -> view.setSelection(2)
+            }
+        }
+
+        @BindingAdapter("android:parsePriorityColor")
+        @JvmStatic
+        fun parsePriorityColor(cardView: CardView, priority: Priority) {
+            when (priority) {
+                Priority.LOW -> cardView.setBackgroundColor(cardView.context.getColor(R.color.green))
+                Priority.MEDIUM -> cardView.setBackgroundColor(cardView.context.getColor(R.color.yellow))
+                Priority.HIGH -> cardView.setBackgroundColor(cardView.context.getColor(R.color.red))
+            }
+        }
+
+        @BindingAdapter("android:navigateToUpdateFragment")
+        @JvmStatic
+        fun navigateToUpdateFragment(view: ConstraintLayout, currentItem: ToDo) {
+            view.setOnClickListener {
+                val action = HomeFragmentDirections.actionHomeFragmentToUpdateFragment(currentItem)
+                view.findNavController().navigate(action)
             }
         }
     }

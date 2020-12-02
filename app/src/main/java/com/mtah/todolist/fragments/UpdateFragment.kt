@@ -40,11 +40,6 @@ class UpdateFragment : Fragment(){
 
         binding.prioritiesSpinner.onItemSelectedListener = sharedViewModel.spinnerListener
 
-//        view.title_et.setText(args.todoItem.title)
-//        view.description_et.setText(args.todoItem.description)
-//        view.priorities_spinner.setSelection(sharedViewModel.priorityToInt(args.todoItem.priority))
-//        view.priorities_spinner.onItemSelectedListener = sharedViewModel.spinnerListener
-
         return binding.root
     }
 

@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
-        <variable name="toDoData" type="com.mtah.todolist.backend.models.ToDo"/>
+        <variable
+                name="toDo"
+                type="com.mtah.todolist.backend.models.ToDo"/>
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -12,7 +14,7 @@
                                                            android:layout_height="wrap_content"
                                                            android:id="@+id/row_bg"
                                                            android:background="@drawable/item_bg"
-
+                                                           android:navigateToUpdateFragment="@{toDo}"
                                                            app:layout_constraintTop_toTopOf="parent"
                                                            app:layout_constraintEnd_toEndOf="parent"
                                                            app:layout_constraintStart_toStartOf="parent">
@@ -25,6 +27,7 @@
                                                android:layout_marginEnd="16dp"
                                                app:cardCornerRadius="100dp"
                                                app:cardBackgroundColor="@color/green"
+                                               android:parsePriorityColor="@{toDo.priority}"
                                                app:layout_constraintTop_toTopOf="parent"
                                                app:layout_constraintEnd_toEndOf="parent"/>
 
@@ -38,7 +41,7 @@
                       android:textSize="20sp"
                       android:textStyle="bold"
                       android:maxLength="15"
-                      android:text="@string/item_title"/>
+                      android:text="@{toDo.title}"/>
             <TextView android:layout_width="0dp"
                       android:layout_height="wrap_content"
                       android:id="@+id/item_desc"
@@ -49,7 +52,7 @@
                       app:layout_constraintStart_toStartOf="@id/item_title_tv"
                       app:layout_constraintBottom_toBottomOf="parent"
                       app:layout_constraintEnd_toEndOf="parent"
-                      android:text="@string/item_description"
+                      android:text="@{toDo.description}"
                       android:maxLength="300" android:maxLines="10"/>
 
 
