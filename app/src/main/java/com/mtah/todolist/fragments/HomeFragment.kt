@@ -9,9 +9,11 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import com.mtah.todolist.R
 import com.mtah.todolist.SharedViewModel
 import com.mtah.todolist.backend.ToDoViewModel
+import com.mtah.todolist.backend.models.ToDo
 import com.mtah.todolist.databinding.FragmentHomeBinding
 import com.mtah.todolist.fragments.adapters.ToDoAdapter
 
@@ -70,7 +72,8 @@ class HomeFragment : Fragment() {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val itemToDelete = adapter.dataList[viewHolder.adapterPosition]
                 viewModel.delete(itemToDelete)
-                Toast.makeText(requireContext(), "Deleted: ${itemToDelete.title}", Toast.LENGTH_SHORT).show()
+                adapter.notifyItemRemoved(viewHolder.adapterPosition)
+                restoreDeletedItem(viewHolder.itemView, itemToDelete, viewHolder.adapterPosition)
             }
         }
 
@@ -78,6 +81,16 @@ class HomeFragment : Fragment() {
         itemTouchHelper.attachToRecyclerView(recyclerView)
     }
 
+    fun restoreDeletedItem(view: View, deletedItem: ToDo, position: Int) {
+        val snackbar = Snackbar.make(view,
+            "Deleted: ${deletedItem.title}",
+            Snackbar.LENGTH_LONG)
+        snackbar.setAction("Undo") {
+            viewModel.insert(deletedItem)
+            adapter.notifyItemChanged(position)
+        }
+        snackbar.show()
+    }
     private fun deleteConfirmation(){
         val alertBuilder = AlertDialog.Builder(requireContext())
         alertBuilder.setMessage("Are you sure you want to delete all data?")

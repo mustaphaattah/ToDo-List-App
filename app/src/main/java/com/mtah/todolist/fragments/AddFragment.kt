@@ -15,8 +15,8 @@ import kotlinx.android.synthetic.main.fragment_add.view.*
 
 class AddFragment : Fragment() {
 
-    val viewModel: ToDoViewModel by viewModels()
-    val sharedViewModel: SharedViewModel by viewModels()
+    private val viewModel: ToDoViewModel by viewModels()
+    private val sharedViewModel: SharedViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,6 +50,7 @@ class AddFragment : Fragment() {
         if (sharedViewModel.isValidData(title, description)){
             val newTask = ToDo(0, title, sharedViewModel.getPriority(priority),description)
             viewModel.insert(newTask)
+            activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
             Toast.makeText(requireContext(), "New task added!", Toast.LENGTH_SHORT).show()
             findNavController().navigate(R.id.action_addFragment_to_homeFragment)
         } else {
