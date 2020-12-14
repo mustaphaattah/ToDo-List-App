@@ -6,11 +6,14 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.mtah.todolist.R
 import com.mtah.todolist.SharedViewModel
 import com.mtah.todolist.backend.ToDoViewModel
 import com.mtah.todolist.databinding.FragmentHomeBinding
+import com.mtah.todolist.fragments.adapters.ToDoAdapter
 
 
 class HomeFragment : Fragment() {
@@ -47,6 +50,8 @@ class HomeFragment : Fragment() {
         val recyclerView = binding.todoRecyclerview
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
+
+        swipeDelete(recyclerView)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -60,6 +65,18 @@ class HomeFragment : Fragment() {
         return super.onOptionsItemSelected(item)
     }
 
+    private fun swipeDelete (recyclerView: RecyclerView) {
+        val swipeDeleteCallback = object : SwipeDelete() {
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val itemToDelete = adapter.dataList[viewHolder.adapterPosition]
+                viewModel.delete(itemToDelete)
+                Toast.makeText(requireContext(), "Deleted: ${itemToDelete.title}", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        val itemTouchHelper = ItemTouchHelper(swipeDeleteCallback)
+        itemTouchHelper.attachToRecyclerView(recyclerView)
+    }
 
     private fun deleteConfirmation(){
         val alertBuilder = AlertDialog.Builder(requireContext())

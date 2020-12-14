@@ -1,6 +1,5 @@
-package com.mtah.todolist.fragments
+package com.mtah.todolist.fragments.adapters
 
-import android.view.MenuItem
 import android.view.View
 import android.widget.Spinner
 import androidx.cardview.widget.CardView
@@ -12,6 +11,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.mtah.todolist.R
 import com.mtah.todolist.backend.models.Priority
 import com.mtah.todolist.backend.models.ToDo
+import com.mtah.todolist.fragments.HomeFragmentDirections
 
 class BindingAdapters {
 
